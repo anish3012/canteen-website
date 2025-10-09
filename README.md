@@ -1,1 +1,1 @@
-# canteen-website
+# cep-project

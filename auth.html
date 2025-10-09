@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Sign Up - Smart Canteen</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --secondary: #f97316;
+            --accent: #8b5cf6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --light: #f8fafc;
+            --dark: #0f172a;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --white: #ffffff;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--white);
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn:disabled {
+            background: var(--light-gray);
+            color: var(--gray);
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 0;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 500px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .auth-card {
+            background-color: var(--white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: var(--white);
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+        }
+
+        .auth-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .auth-subtitle {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px 20px;
+            border: 1px solid var(--light-gray);
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .toggle-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .toggle-link p {
+            color: var(--gray);
+        }
+
+        .toggle-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .alert-success {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .alert-info {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+        }
+
+        .alert-danger {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo"><i class="fas fa-utensils"></i>
+                <h1>Smart Canteen</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="auth-container">
+            <div class="auth-card" id="login-form-container">
+                <div class="auth-header">
+                    <div class="auth-icon"><i class="fas fa-user"></i></div>
+                    <h2 class="auth-title">Welcome Back</h2>
+                    <p class="auth-subtitle">Login to your account</p>
+                </div>
+                <div id="login-alert"></div>
+                <form id="login-form">
+                    <div class="form-group"><label class="form-label" for="login-email">Email Address</label><input
+                            type="email" class="form-control" id="login-email" required></div>
+                    <div class="form-group"><label class="form-label" for="login-password">Password</label><input
+                            type="password" class="form-control" id="login-password" required></div>
+                    <button type="submit" class="btn btn-primary auth-btn">Sign In</button>
+                </form>
+                <div class="toggle-link">
+                    <p>Don't have an account? <a id="show-signup">Sign Up</a></p>
+                </div>
+            </div>
+
+            <div class="auth-card" id="signup-form-container" style="display: none;">
+                <div class="auth-header">
+                    <div class="auth-icon"><i class="fas fa-user-plus"></i></div>
+                    <h2 class="auth-title">Create Account</h2>
+                    <p class="auth-subtitle" id="signup-subtitle">Enter your details to create an account</p>
+                </div>
+                <div id="signup-alert"></div>
+
+                <form id="signup-details-form">
+                    <div class="form-row">
+                        <div class="form-group"><label class="form-label" for="first-name">First Name</label><input
+                                type="text" class="form-control" name="first-name" id="first-name" required></div>
+                        <div class="form-group"><label class="form-label" for="last-name">Last Name</label><input
+                                type="text" class="form-control" name="last-name" id="last-name" required></div>
+                    </div>
+                    <div class="form-group"><label class="form-label" for="signup-email">Email Address</label><input
+                            type="email" class="form-control" name="email" id="signup-email" required></div>
+                    <button type="submit" class="btn btn-primary auth-btn">Next</button>
+                </form>
+
+                <div id="password-creation-container" style="display: none;">
+                    <div class="form-group"><label class="form-label" for="new-password">Create Password</label><input
+                            type="password" class="form-control" id="new-password" placeholder="At least 6 characters"
+                            required></div>
+                    <div class="form-group"><label class="form-label" for="confirm-new-password">Confirm
+                            Password</label><input type="password" class="form-control" id="confirm-new-password"
+                            required></div>
+                    <button class="btn btn-primary auth-btn" id="complete-signup-btn">Create Account</button>
+                </div>
+
+                <div class="toggle-link">
+                    <p>Already have an account? <a id="show-login">Login</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // --- LOCAL STORAGE KEY ---
+        const USERS_DB_KEY = 'smartCanteenUsers';
+
+        // --- DOM ELEMENTS ---
+        const loginContainer = document.getElementById('login-form-container');
+        const signupContainer = document.getElementById('signup-form-container');
+        const showSignupLink = document.getElementById('show-signup');
+        const showLoginLink = document.getElementById('show-login');
+        const signupDetailsForm = document.getElementById('signup-details-form');
+        const passwordContainer = document.getElementById('password-creation-container');
+        const signupAlert = document.getElementById('signup-alert');
+        const loginAlert = document.getElementById('login-alert');
+        const signupSubtitle = document.getElementById('signup-subtitle');
+        const completeSignupBtn = document.getElementById('complete-signup-btn');
+
+        // --- HELPER FUNCTIONS ---
+        const showAlert = (alertElement, type, message) => {
+            alertElement.innerHTML = message ? `<div class="alert alert-${type}">${message}</div>` : '';
+        };
+        const toggleButtonState = (button, isLoading) => {
+            if (!button) return;
+            button.disabled = isLoading;
+            if (isLoading) {
+                button.dataset.originalText = button.textContent;
+                button.textContent = 'Processing...';
+            } else {
+                button.textContent = button.dataset.originalText;
+            }
+        };
+
+        // --- FORM TOGGLING ---
+        showSignupLink.addEventListener('click', () => {
+            loginContainer.style.display = 'none';
+            signupContainer.style.display = 'block';
+        });
+        showLoginLink.addEventListener('click', () => {
+            signupContainer.style.display = 'none';
+            loginContainer.style.display = 'block';
+        });
+
+        // --- LOCAL LOGIN LOGIC ---
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const button = e.target.querySelector('button');
+            toggleButtonState(button, true);
+
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            showAlert(loginAlert, 'info', 'Checking credentials...');
+
+            setTimeout(() => { // Simulate a check
+                const users = JSON.parse(localStorage.getItem(USERS_DB_KEY)) || [];
+                const user = users.find(u => u.email === email && u.password === password);
+
+                if (user) {
+                    showAlert(loginAlert, 'success', 'Login successful! Redirecting...');
+                    // Save the entire user object for the session
+                    sessionStorage.setItem('loggedInUser', JSON.stringify(user));
+                    setTimeout(() => window.location.href = 'index.html', 1500);
+                } else {
+                    showAlert(loginAlert, 'danger', 'Error: Invalid email or password.');
+                    toggleButtonState(button, false);
+                }
+            }, 500);
+        });
+
+        // --- LOCAL SIGNUP STEP 1: Get Details ---
+        signupDetailsForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            showAlert(signupAlert, '', ''); // Clear previous alerts
+            signupSubtitle.textContent = "Create a secure password";
+            signupDetailsForm.style.display = 'none';
+            passwordContainer.style.display = 'block';
+        });
+
+        // --- LOCAL SIGNUP STEP 2: Create Password & Save ---
+        completeSignupBtn.addEventListener('click', () => {
+            const button = completeSignupBtn;
+            toggleButtonState(button, true);
+
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-new-password').value;
+
+            if (!newPassword || newPassword.length < 6) {
+                showAlert(signupAlert, 'danger', 'Password must be at least 6 characters long.');
+                toggleButtonState(button, false);
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                showAlert(signupAlert, 'danger', 'Passwords do not match.');
+                toggleButtonState(button, false);
+                return;
+            }
+
+            const formData = new FormData(signupDetailsForm);
+            const newUser = {
+                'first-name': formData.get('first-name'),
+                'last-name': formData.get('last-name'),
+                'email': formData.get('email'),
+                'password': newPassword
+            };
+
+            setTimeout(() => { // Simulate saving
+                const users = JSON.parse(localStorage.getItem(USERS_DB_KEY)) || [];
+                const existingUser = users.find(u => u.email === newUser.email);
+
+                if (existingUser) {
+                    showAlert(signupAlert, 'danger', 'An account with this email already exists.');
+                    toggleButtonState(button, false);
+                } else {
+                    users.push(newUser);
+                    localStorage.setItem(USERS_DB_KEY, JSON.stringify(users));
+                    showAlert(signupAlert, 'success', 'Account created successfully! You can now log in.');
+                    setTimeout(() => {
+                        window.location.reload(); // Reload to reset the form state
+                    }, 2000);
+                }
+            }, 500);
+        });
+    </script>
+</body>
+
+</html>

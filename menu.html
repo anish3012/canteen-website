@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Smart Canteen</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --secondary: #f97316;
+            --accent: #8b5cf6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --light: #f8fafc;
+            --dark: #0f172a;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --white: #ffffff;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--white);
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--primary);
+            animation: pulse 2s infinite;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-danger:hover {
+            background-color: #dc2626;
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(239, 68, 68, 0.4);
+        }
+
+        .page-header {
+            padding: 4rem 0 2rem;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .page-subtitle {
+            color: var(--gray);
+            text-align: center;
+        }
+
+        .menu-section {
+            padding: 3rem 0;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-item {
+            background-color: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .menu-item-img {
+            height: 200px;
+        }
+
+        .menu-item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .menu-item-content {
+            padding: 1.5rem;
+        }
+
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-item-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .menu-item-price {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .menu-item-description {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin: 0.5rem 0 1rem;
+        }
+
+        .menu-item-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stock-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .in-stock {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .low-stock {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-column p,
+        .footer-column ul li a {
+            color: #cbd5e1;
+            text-decoration: none;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                position: relative;
+            }
+
+            nav {
+                width: 100%;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: var(--white);
+                box-shadow: var(--shadow);
+            }
+
+            nav ul {
+                flex-direction: column;
+                width: 100%;
+                gap: 0;
+                display: none;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <h1>Smart Canteen</h1>
+            </div>
+            <button class="mobile-menu-btn" id="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="preorder.html">Pre-Order</a></li>
+                    <li><a href="status.html">Order Status</a></li>
+                    <li><a href="admin-login.html">Admin</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <div id="logged-out-view" style="display: flex; gap: 15px;">
+                    <a href="auth.html" class="btn btn-outline">Login</a>
+                    <a href="auth.html" class="btn btn-primary">Sign Up</a>
+                </div>
+                <div id="logged-in-view" style="display: none; align-items: center; gap: 15px;">
+                    <span id="user-display" style="font-weight: 500;"></span>
+                    <a href="#" id="logout-btn" class="btn btn-danger">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <div class="container">
+            <h1 class="page-title">Our Menu</h1>
+            <p class="page-subtitle">Delicious food made fresh daily</p>
+        </div>
+    </div>
+
+    <section class="menu-section">
+        <div class="container">
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="menu-item-img"><img
+                            src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                            alt="Veg Sandwich"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h3 class="menu-item-title">Veg Sandwich</h3><span class="menu-item-price">₹40</span>
+                        </div>
+                        <p class="menu-item-description">Fresh vegetables with mayo and cheese in toasted bread.</p>
+                        <div class="menu-item-footer"><span class="stock-badge in-stock">In Stock</span><a
+                                href="preorder.html" class="btn btn-primary btn-sm">Add to Cart</a></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-img"><img
+                            src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                            alt="Chicken Burger"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h3 class="menu-item-title">Chicken Burger</h3><span class="menu-item-price">₹80</span>
+                        </div>
+                        <p class="menu-item-description">Juicy chicken patty with cheese, lettuce, and special sauce.
+                        </p>
+                        <div class="menu-item-footer"><span class="stock-badge in-stock">In Stock</span><a
+                                href="preorder.html" class="btn btn-primary btn-sm">Add to Cart</a></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-img"><img
+                            src="https://t4.ftcdn.net/jpg/01/89/45/21/360_F_189452136_gJBG4ZRXY9NnZZCGV2s8QhObmpeerJTO.jpg"
+                            alt="Masala Dosa"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h3 class="menu-item-title">Masala Dosa</h3><span class="menu-item-price">₹50</span>
+                        </div>
+                        <p class="menu-item-description">Crispy dosa with spiced potato filling and chutney.</p>
+                        <div class="menu-item-footer"><span class="stock-badge in-stock">In Stock</span><a
+                                href="preorder.html" class="btn btn-primary btn-sm">Add to Cart</a></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-img"><img
+                            src="https://t3.ftcdn.net/jpg/01/51/50/06/240_F_151500644_OvX2Ngp4X1r5dEi3IiG8BHnUt84CqaZ5.jpg"
+                            alt="Cold Coffee"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h3 class="menu-item-title">Cold Coffee</h3><span class="menu-item-price">₹60</span>
+                        </div>
+                        <p class="menu-item-description">Chilled coffee with ice cream and whipped cream.</p>
+                        <div class="menu-item-footer"><span class="stock-badge low-stock">Low Stock</span><a
+                                href="preorder.html" class="btn btn-primary btn-sm">Add to Cart</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Smart Canteen</h3>
+                    <p>Revolutionizing the canteen experience...</p>
+                    <div class="social-links"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i
+                                class="fab fa-twitter"></i></a></div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="preorder.html">Pre-Order</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Trinity College, Pune</li>
+                        <li><i class="fas fa-phone"></i> +91 98765 43210</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Developers</h3>
+                    <ul>
+                        <li>Pranav Raut</li>
+                        <li>Samarth Gole</li>
+                        <li>Anish Sonawane</li>
+                        <li>Srushti Urmode</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">&copy; 2025 Smart Canteen. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const loggedOutView = document.getElementById('logged-out-view');
+            const loggedInView = document.getElementById('logged-in-view');
+            const userDisplay = document.getElementById('user-display');
+            const logoutBtn = document.getElementById('logout-btn');
+            const loggedInUserJSON = sessionStorage.getItem('loggedInUser');
+
+            if (loggedInUserJSON) {
+                const user = JSON.parse(loggedInUserJSON);
+                loggedOutView.style.display = 'none';
+                loggedInView.style.display = 'flex';
+                userDisplay.textContent = `Welcome, ${user['first-name']}`;
+                logoutBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    sessionStorage.removeItem('loggedInUser');
+                    window.location.reload();
+                });
+            } else {
+                loggedOutView.style.display = 'flex';
+                loggedInView.style.display = 'none';
+            }
+        });
+
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const navMenu = document.getElementById('nav-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+    </script>
+</body>
+
+</html>
